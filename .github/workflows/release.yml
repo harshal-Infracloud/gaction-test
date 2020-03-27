@@ -14,6 +14,6 @@ jobs:
         PROJECT_ID: ${{ secrets.PROJECT_ID }}
         APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         CLUSTER_NAME: ${{ secrets.GKE_CLUSTER_NAME }}
-        ZONE_NAME: us-central1-c
+        ZONE_NAME: southamerica-east1-b
       with:
         args: apply -f application-wordpress-mysql-deployment-yaml
