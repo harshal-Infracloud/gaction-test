@@ -1,13 +1,16 @@
 name: Deploy App on GKE cluster.
-on:
-  push:
-    branches:
-      - master
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - name: Update image to latest again tag.
+      uses: ameydev/yaml-find-key-replace-value@master
+      with:
+        FILE_PATTERN: application-wordpress-mysql-deployment-yaml
+        FIND_KEY: image
+        REPLACE_VALUE_PATTERN: yaml.EXISTING_VALUE_WT+:+env.GITHUB_SHA
     - name: kubectl - Google Cloud GKE cluster.
       uses: ameydev/gke-kubectl-action@master
       env:
@@ -16,4 +19,4 @@ jobs:
         CLUSTER_NAME: ${{ secrets.GKE_CLUSTER_NAME }}
         ZONE_NAME: southamerica-east1-b
       with:
-        args: apply -f application-wordpress-mysql-deployment-yaml
+        args: apply -f application-wordpress-mysql-deployment-yaml 
